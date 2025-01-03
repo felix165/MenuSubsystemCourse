@@ -72,6 +72,7 @@ public:
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
 
 
+//Addition from course
 public:
 
 	//Pointer to the online session interface
@@ -82,11 +83,21 @@ protected:
 	UFUNCTION(BlueprintCallable, Category="Game Session")
 	void CreateGameSession();
 
+	UFUNCTION(BlueprintCallable, Category = "Game Session")
+	void JoinGameSession();
+
+
 	void OnCreateSessionComplete(FName SessionName, bool bWasSuccessful); //callback function
+
+	void OnFindSessionsComplete(bool bWasSuccessful);
 
 
 private:
 
 	FOnCreateSessionCompleteDelegate CreateSessionCompleteDelegate;
+
+	FOnFindSessionsCompleteDelegate FindSessionCompleteDelegate;
+
+	TSharedPtr<FOnlineSessionSearch> SessionSearch;
 };
 
