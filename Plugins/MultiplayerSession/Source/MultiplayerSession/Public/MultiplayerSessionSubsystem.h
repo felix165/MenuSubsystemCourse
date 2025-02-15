@@ -44,6 +44,7 @@ protected:
 
 private:
 	IOnlineSessionPtr SessionInterface;
+	TSharedPtr<FOnlineSessionSettings> LastSessionSettings;
 
 	//
 	//To Add to the online Session Interface delegate list.
@@ -51,10 +52,15 @@ private:
 	//
 
 	FOnCreateSessionCompleteDelegate CreateSessionCompleteDelegate;
+	FDelegateHandle CreateSessionCompleteDelegateHandle;
 	FOnFindSessionsCompleteDelegate FindSessionCompleteDelegate;
+	FDelegateHandle FindSessionCompleteDelegateHandle;
 	FOnJoinSessionCompleteDelegate JoinSessionCompleteDelegate;
+	FDelegateHandle JoinSessionCompleteDelegateHandle;
 	FOnDestroySessionCompleteDelegate DestroySessionCompleteDelegate;
+	FDelegateHandle DestroySessionCompleteDelegateHandle;	
 	FOnStartSessionCompleteDelegate StartSessionCompleteDelegate;
+	FDelegateHandle StartSessionCompleteDelegateHandle;
 
 
 
