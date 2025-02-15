@@ -4,6 +4,7 @@
 #include "Components/Button.h"
 #include "MultiplayerSessionSubsystem.h"
 #include "OnlineSessionSettings.h"
+#include "OnlineSubsystem.h"
 
 
 void UMenu::MenuSetup(int32 NumberOfPublicConnections, FString TypeOfMatch)
@@ -96,10 +97,25 @@ void UMenu::OnCreateSession(bool bWasSuccessful)
 
 void UMenu::OnFindSessions(const TArray<FOnlineSessionSearchResult>& SessionResults, bool bWasSuccessful)
 {
+	for (auto Result : SessionResults)
+	{
+		FString SettingsValue;
+		Result.Session.SessionSettings.Get(FName("MatchType"), SettingsValue);
+		if (SettingsValue == MatchType)
+		{
+			MultiplayerSessionSubsystem->JoinSession(Result);
+			return;
+		}
+	}
 }
 
 void UMenu::OnJoinSession(EOnJoinSessionCompleteResult::Type Result)
 {
+	IOnlineSubsystem* Subsystem = IOnlineSubsystem::Get();
+	if (Subsystem)
+	{
+		IOnlineSessionPtr SessionInterface = Subsystem->GetSessionInterface();
+	}
 }
 
 void UMenu::OnDestroySession(bool bWasSuccessful)
@@ -122,10 +138,9 @@ void UMenu::HostButtonClicked()
 
 void UMenu::JoinButtonClicked()
 {
-	if (GEngine)
+	if (MultiplayerSessionSubsystem)
 	{
-		GEngine->AddOnScreenDebugMessage
-		(-1, 15.f, FColor::Yellow, TEXT("Join Button Clicked"));
+		MultiplayerSessionSubsystem->FindSessions(10000);
 	}
 }
 
