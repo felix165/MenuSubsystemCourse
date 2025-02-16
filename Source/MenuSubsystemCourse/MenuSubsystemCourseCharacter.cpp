@@ -65,7 +65,7 @@ AMenuSubsystemCourseCharacter::AMenuSubsystemCourseCharacter():
 	{
 		OnlineSessionInterface = OnlineSubsystem->GetSessionInterface();
 
-		if (GEngine)
+		/*if (GEngine)
 		{
 			GEngine->AddOnScreenDebugMessage(
 				-1,
@@ -73,7 +73,7 @@ AMenuSubsystemCourseCharacter::AMenuSubsystemCourseCharacter():
 				FColor::Blue,
 				FString::Printf(TEXT("Found subsystem %s"), *OnlineSubsystem->GetSubsystemName().ToString())
 				);
-		}
+		}*/
 	}
 }
 
